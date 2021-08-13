@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  goapi:
+    image: gsdockit/gsgoapi:latest
+    ports:
+      - "127.0.0.1:9000:4000/tcp"
+  promserver:
+    image: prom/prometheus:v2.22.0
+    ports:
+      - "127.0.0.1:9090:9090/tcp"
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml

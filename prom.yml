@@ -14,5 +14,3 @@ spec:
         cpu: "500m"
     ports:
       - containerPort: 9090
-    ports:
-      - hostPort: 9090

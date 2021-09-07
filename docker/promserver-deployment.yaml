@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: promserver
+  name: promserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: promserver
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: promserver
+    spec:
+      containers:
+        - image: prom/prometheus:v2.22.0
+          name: promserver
+          ports:
+            - containerPort: 9090
+          resources: {}
+      restartPolicy: Always
+status: {}

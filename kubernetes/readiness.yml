@@ -22,15 +22,13 @@ spec:
         exec:
           command:
           - if [ -f /usr/share/nginx/html/index.html ] ; then echo "file exist" ; fi
-        initialDelaySeconds: 30
+        initialDelaySeconds: 5
         periodSeconds: 5
   # These containers are run during pod initialization
   initContainers:
-    - name: install
+    - name: add-html
       image: busybox
       command:
-        - sleep 
-        - "30"
         - wget
         - "-O"
         - "/work-dir/index.html"

@@ -1,10 +1,20 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-password
+type: Opaque
+data:
+  password: YWRtaW4=
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: mysql
 spec:
   ports:
-    - port: 3306
+    - name: mysql-ports
+      port: 3306
+      targetPort: 3306
   selector:
     app: mysql
   clusterIP: None
@@ -28,11 +38,11 @@ spec:
         - image: mysql:5.7
           name: mysql
           env:
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-pwd
-                key: password
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-password
+                  key: password
           ports:
             - containerPort: 3306
               name: mysql

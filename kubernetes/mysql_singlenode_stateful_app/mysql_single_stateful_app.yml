@@ -3,6 +3,7 @@ kind: Secret
 metadata:
   name: mysql-password
 type: Opaque
+# Run `echo -n 'admin' | base64` to get the base64 encoded value
 data:
   password: YWRtaW4=
 ---

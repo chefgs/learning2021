@@ -6,6 +6,16 @@ type: Opaque
 # Run `echo -n 'admin' | base64` to get the base64 encoded value
 data:
   password: YWRtaW4=
+  user: YWRtaW4K
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-user
+type: Opaque
+# Run `echo -n 'admin' | base64` to get the base64 encoded value
+data:
+  user: YWRtaW4K
 ---
 apiVersion: v1
 kind: Service
@@ -39,6 +49,16 @@ spec:
         - image: mysql:5.7
           name: mysql
           env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-user
+                  key: user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-password
+                  key: password
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
